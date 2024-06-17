@@ -1,0 +1,362 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Code Test API",
+      "description": "This is the api end points docs",
+      "version": "1.0.0"
+    },
+    
+    "servers": [
+      {
+        "url": "/api"
+      }
+    ],
+    "paths": {
+      "/user/profile": {
+        "get": {
+          "tags": ["User"],
+          "summary": "Get user profile",
+          "description": "Retrieve the profile of the currently authenticated user.",
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "The unique identifier of the user."
+                      },
+                      "first_name": {
+                        "type": "string",
+                        "description": "The first name of the user."
+                      },
+                      "last_name": {
+                        "type": "string",
+                        "description": "The last name of the user."
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "The email address of the user."
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "projectId": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized access"
+            }
+          }
+        }
+      },
+      "/user/create": {
+        "post": {
+          "tags": ["User"],
+          "summary": "User account creation",
+          "description": "Creating a new user.",
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized access"
+            }
+          }
+        }
+      },
+      "/user/getAll": {
+        "get": {
+          "tags": ["User"],
+          "summary": "Get all users",
+          "description": "Retrieve a list of all users.",
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "The unique identifier of the user."
+                      },
+                      "first_name": {
+                        "type": "string",
+                        "description": "The first name of the user."
+                      },
+                      "last_name": {
+                        "type": "string",
+                        "description": "The last name of the user."
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "The email address of the user."
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "projectId": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized access"
+            }
+          }
+        }
+      },
+      "/user/:id": {
+        "get": {
+          "tags": ["User"],
+          "summary": "Get a single user by ID",
+          "description": "Retrieve a single user by their ID.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "User ID",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "The unique identifier of the user."
+                      },
+                      "first_name": {
+                        "type": "string",
+                        "description": "The first name of the user."
+                      },
+                      "last_name": {
+                        "type": "string",
+                        "description": "The last name of the user."
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "The email address of the user."
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "projectId": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized access"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The unique identifier of the user."
+            },
+            "first_name": {
+              "type": "string",
+              "description": "The first name of the user."
+            },
+            "last_name": {
+              "type": "string",
+              "description": "The last name of the user."
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "The email address of the user."
+            },
+            "password": {
+              "type": "string",
+              "description": "The password of the user."
+            },
+            "role": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            }
+          }
+        },
+        "Project": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "description": "The unique identifier of the project"
+            },
+            "project_name": {
+              "type": "string",
+              "description": "The name of the project"
+            },
+            "client_name": {
+              "type": "string",
+              "description": "The name of the client associated with the project"
+            },
+            "description": {
+              "type": "string",
+              "description": "The description of the project"
+            },
+            "country": {
+              "type": "string",
+              "description": "The country where the project is located"
+            },
+            "city": {
+              "type": "string",
+              "description": "The city where the project is located"
+            },
+            "postal_code": {
+              "type": "integer",
+              "description": "The postal code of the project location"
+            },
+            "floor_area": {
+              "type": "integer",
+              "description": "The floor area of the project in square meters"
+            },
+            "unit": {
+              "type": "string",
+              "description": "The unit of measurement for floor area (e.g., sqm)"
+            },
+            "start_date": {
+              "type": "string",
+              "format": "date",
+              "description": "The start date of the project"
+            },
+            "end_date": {
+              "type": "string",
+              "format": "date",
+              "description": "The end date of the project"
+            },
+            "image": {
+              "type": "string",
+              "description": "The URL of the image associated with the project"
+            }
+          },
+          "required": ["project_name", "client_name", "country", "city"]
+        },
+        "EventDetail": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "description": "The unique identifier of the event detail"
+            },
+            "event_name": {
+              "type": "string",
+              "description": "The name of the event"
+            },
+            "country": {
+              "type": "string",
+              "description": "The country where the event takes place"
+            },
+            "city": {
+              "type": "string",
+              "description": "The city where the event takes place"
+            },
+            "postal_code": {
+              "type": "integer",
+              "description": "The postal code of the event location"
+            },
+            "floor_area": {
+              "type": "number",
+              "description": "The floor area of the event in square meters"
+            },
+            "unit": {
+              "type": "string",
+              "description": "The unit of measurement for floor area (e.g., sqm)"
+            },
+            "start_date": {
+              "type": "string",
+              "format": "date",
+              "description": "The start date of the event"
+            },
+            "end_date": {
+              "type": "string",
+              "format": "date",
+              "description": "The end date of the event"
+            },
+            "groupingId": {
+              "type": "string",
+              "format": "uuid",
+              "description": "The ID of the grouping associated with the event"
+            },
+            "projectId": {
+              "type": "string",
+              "format": "uuid",
+              "description": "The ID of the project associated with the event"
+            }
+          },
+          "required": ["event_name", "country", "city", "postal_code"]
+        }
+      }
+    }
+  }
+  
